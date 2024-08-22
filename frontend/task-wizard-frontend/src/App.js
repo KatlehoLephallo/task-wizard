@@ -19,11 +19,20 @@ function App() {
         setTasks(updatedTasks);
     };
 
+    const handleTaskDelete = async (id) => {
+        await fetch(`http://localhost:8080/tasks/${id}`, {
+            method: 'DELETE',
+        });
+        const response = await fetch('http://localhost:8080/tasks');
+        const updatedTasks = await response.json();
+        setTasks(updatedTasks);
+    };
+
     return (
         <div>
             <h1>Task Wizard</h1>
             <AddTaskForm onTaskCreate={handleTaskCreate} />
-            <TaskList tasks={tasks} />
+            <TaskList tasks={tasks} onTaskDelete={handleTaskDelete} />
         </div>
     );
 }
