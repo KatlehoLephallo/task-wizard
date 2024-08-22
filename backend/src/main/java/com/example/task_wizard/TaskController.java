@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
@@ -22,11 +23,10 @@ public class TaskController {
     }
 
     @PostMapping
-    public Task createTask(@RequestParam String name) {
-        Task task = new Task();
-        task.setName(name);
+    public Task createTask(@RequestBody Task task) {
         return taskService.createTask(task);
     }
+
 
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable String id) {

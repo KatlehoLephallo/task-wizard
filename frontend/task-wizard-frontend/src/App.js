@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React, { useState, useEffect } from 'react';
+import AddTaskForm from './components/AddTaskForm';
+import TaskList from './components/TaskList';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [tasks, setTasks] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:8080/tasks')
+            .then(response => response.json())
+            .then(data => setTasks(data));
+    }, []);
+
+    const handleTaskCreate = async (newTask) => {
+        setTasks([...tasks, newTask]);
+        const response = await fetch('http://localhost:8080/tasks');
+        const updatedTasks = await response.json();
+        setTasks(updatedTasks);
+    };
+
+    return (
+        <div>
+            <h1>Task Wizard</h1>
+            <AddTaskForm onTaskCreate={handleTaskCreate} />
+            <TaskList tasks={tasks} />
+        </div>
+    );
 }
 
 export default App;
