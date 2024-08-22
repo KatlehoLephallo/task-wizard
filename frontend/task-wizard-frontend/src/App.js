@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import AddTaskForm from './components/AddTaskForm';
 import TaskList from './components/TaskList';
+import './App.css';
+
 
 function App() {
     const [tasks, setTasks] = useState([]);
@@ -29,8 +31,8 @@ function App() {
     };
 
     return (
-        <div>
-            <h1>Task Wizard</h1>
+        <div className="App-header">
+            <h1 className='App-title'>Task Wizard</h1>
             <AddTaskForm onTaskCreate={handleTaskCreate} />
             <TaskList tasks={tasks} onTaskDelete={handleTaskDelete} />
         </div>

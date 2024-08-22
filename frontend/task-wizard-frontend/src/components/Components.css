@@ -1,0 +1,88 @@
+    /*##########################*/    
+    /* AddTaskForm styling */
+    /*##########################*/
+
+/* Style the form */
+form {
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    border: none;
+    width: 12cm;
+}
+
+/* Style the label */
+.label {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Style the input field */
+.label-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+}
+
+/* Style the button */
+.label-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    width: 40%;
+    /* height: 100%; */
+}
+
+/* Change the background color on button hover */
+.label-button:hover {
+    background-color: #45a049;
+}
+
+    /*##########################*/    
+    /* TaskItem styling */
+    /*##########################*/
+
+/* Style the div */
+.item-div {
+    display: flex;
+    justify-content: space-between;
+    align-items:start;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    margin: 5%;
+    width: 8cm;
+}
+
+/* Style the heading */
+.task-name {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+/* Style the button */
+.delete-button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: #f44336; /* Red color for the trash icon */
+}
+
+/* Change the color on button hover */
+button:hover {
+    color: #d32f2f; /* Darker red color on hover */
+}
+
