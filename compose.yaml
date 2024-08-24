@@ -25,7 +25,52 @@ services:
     networks:
       - taskwizard-network
 
+  taskwizard-frontend:
+    image: taskwizard-frontend
+    ports:
+      - 3000:3000
+    depends_on:
+      - taskwizard-backend
+    networks:
+      - taskwizard-network
 
 networks:
   taskwizard-network:
     driver: bridge
+
+
+
+
+
+
+# version: '3'
+# services:
+
+#   taskwizard-db:
+#     image: postgres
+#     ports:
+#       - 5432:5432
+#     environment:
+#       - POSTGRES_DB=taskwizard_db
+#       - POSTGRES_USER=taskwizard_user
+#       - POSTGRES_PASSWORD=secret
+#     networks:
+#       - taskwizard-network
+
+#   taskwizard-backend:
+#     image: taskwizard-backend
+#     ports:
+#       - 8080:8080
+#     environment:
+#       - SPRING_DATASOURCE_URL=jdbc:postgresql://taskwizard-db:5432/taskwizard_db
+#       - SPRING_DATASOURCE_USERNAME=taskwizard_user
+#       - SPRING_DATASOURCE_PASSWORD=secret
+#     depends_on:
+#       - taskwizard-db
+#     networks:
+#       - taskwizard-network
+
+
+# networks:
+#   taskwizard-network:
+#     driver: bridge
