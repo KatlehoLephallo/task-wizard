@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskwizard-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: taskwizard-backend
+  template:
+    metadata:
+      labels:
+        app: taskwizard-backend
+    spec:
+      containers:
+        - name: taskwizard-backend
+          image: katleholephallo1/task-wizard-backend:0.0.1
+          ports:
+          - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://taskwizard-db-service:5432/taskwizard_db
+            - name: SPRING_DATASOURCE_USERNAME
+              value: taskwizard_user
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taskwizard-backend-service
+spec:
+  selector:
+    app: taskwizard-backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer

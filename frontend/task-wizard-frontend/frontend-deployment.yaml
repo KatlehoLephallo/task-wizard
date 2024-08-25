@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskwizard-frontend
+  labels:
+    app: taskwizard-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: taskwizard-frontend
+  template:
+    metadata:
+      labels:
+        app: taskwizard-frontend
+    spec:
+      containers:
+      - name: taskwizard-frontend
+        image: katleholephallo1/task-wizard-frontend:0.0.1
+        ports:
+        - containerPort: 3000
+        env:
+        - name: REACT_APP_BACKEND_URL
+          value: http://taskwizard-backend-service/tasks
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taskwizard-frontend-service
+spec:
+  selector:
+    app: taskwizard-frontend
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: LoadBalancer

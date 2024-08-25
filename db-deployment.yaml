@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: taskwizard-db-pv
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: taskwizard-db-pvc
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskwizard-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: taskwizard-db
+  template:
+    metadata:
+      labels:
+        app: taskwizard-db
+    spec:
+      containers:
+      - name: taskwizard-db
+        image: postgres
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          value: taskwizard_user
+        - name: POSTGRES_PASSWORD
+          value: secret
+        - name: POSTGRES_DB
+          value: taskwizard_db
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgres-storage
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: taskwizard-db-pvc
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: taskwizard-db-service
+spec:
+  selector:
+    app: taskwizard-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
