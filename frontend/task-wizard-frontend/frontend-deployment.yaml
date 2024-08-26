@@ -21,7 +21,7 @@ spec:
         - containerPort: 3000
         env:
         - name: REACT_APP_BACKEND_URL
-          value: http://taskwizard-backend-service/tasks
+          value: http://taskwizard-backend-service:80/tasks
 ---
 apiVersion: v1
 kind: Service
