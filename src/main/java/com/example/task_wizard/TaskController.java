@@ -7,6 +7,7 @@ import java.util.List;
 
 //@CrossOrigin(origins = "http://localhost:3000")
 @CrossOrigin
+//@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE})
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
@@ -18,9 +19,15 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+//    @GetMapping
+//    public List<Task> getTasks() {
+//        return taskService.getTasks();
+//    }
     @GetMapping
     public List<Task> getTasks() {
-        return taskService.getTasks();
+        List<Task> tasks = taskService.getTasks();
+        System.out.println("Returning tasks: " + tasks);
+        return tasks;
     }
 
     @PostMapping
